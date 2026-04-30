@@ -1,0 +1,3 @@
+import { db } from '../database'
+export const createSale=(s:any)=>db.prepare('INSERT INTO sales(user_id,username,product_name,amount,notes,created_at) VALUES(?,?,?,?,?,?)').run(s.user_id,s.username,s.productName,s.amount,s.notes||null,new Date().toISOString())
+export const listSales=(f:any={})=>{let sql='SELECT * FROM sales WHERE 1=1'; const p:any[]=[]; if(f.username){sql+=' AND username LIKE ?';p.push(`%${f.username}%`)} if(f.product){sql+=' AND product_name LIKE ?';p.push(`%${f.product}%`)} const rows=db.prepare(sql+' ORDER BY id DESC').all(...p) as any[]; const totalAmount=rows.reduce((a,r)=>a+Number(r.amount),0); return {rows,totalAmount,totalSales:rows.length}}

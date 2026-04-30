@@ -1,0 +1,4 @@
+import { db } from '../database'
+export const listComments=(q:any={})=>{let sql='SELECT * FROM comments WHERE 1=1'; const p:any[]=[]; if(q.search){sql+=' AND (username LIKE ? OR comment_text LIKE ?)';p.push(`%${q.search}%`,`%${q.search}%`)} if(q.hasSale==='with')sql+=' AND has_sale=1'; if(q.hasSale==='without')sql+=' AND has_sale=0'; if(q.keyword){sql+=' AND comment_text LIKE ?';p.push(`%${q.keyword}%`)} return db.prepare(sql+' ORDER BY id DESC LIMIT 500').all(...p)}
+export const createComment=(c:any)=>db.prepare('INSERT OR IGNORE INTO comments(user_id,username,comment_text,comment_key,avatar_url,captured_at,live_url) VALUES(?,?,?,?,?,?,?)').run(c.user_id,c.username,c.commentText,c.comment_key,c.avatarUrl||null,c.capturedAt,c.liveUrl||null)
+export const clearComments=()=>db.prepare('DELETE FROM comments').run()
