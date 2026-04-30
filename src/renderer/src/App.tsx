@@ -1,0 +1,2 @@
+import { useState } from 'react'; import { Layout } from './components/Layout'; import LivePage from './pages/LivePage'; import SalesPage from './pages/SalesPage'; import RafflePage from './pages/RafflePage'; import SettingsPage from './pages/SettingsPage';
+export default function App(){const [tab,setTab]=useState('Live'); return <Layout tab={tab} setTab={setTab}>{tab==='Live'&&<LivePage/>}{tab==='Vendas'&&<SalesPage/>}{tab==='Sorteio'&&<RafflePage/>}{tab==='Configurações'&&<SettingsPage/>}</Layout>}

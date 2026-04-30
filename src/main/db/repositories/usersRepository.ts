@@ -1,0 +1,2 @@
+import { db } from '../database'
+export const upsertUser=(username:string,avatarUrl?:string)=>{const now=new Date().toISOString(); db.prepare(`INSERT INTO users(username,avatar_url,created_at,updated_at) VALUES(?,?,?,?) ON CONFLICT(username) DO UPDATE SET avatar_url=excluded.avatar_url, updated_at=excluded.updated_at`).run(username,avatarUrl||null,now,now); return db.prepare('SELECT * FROM users WHERE username=?').get(username) as any}
