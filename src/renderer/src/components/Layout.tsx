@@ -1,0 +1,1 @@
+import Tabs from './Tabs'; export const Layout=({tab,setTab,children}:any)=><div className='p-4 max-w-6xl mx-auto'><h1 className='text-2xl font-bold mb-3'>Instagram Live Manager</h1><Tabs tab={tab} setTab={setTab}/><div className='mt-4'>{children}</div></div>

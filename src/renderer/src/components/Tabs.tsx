@@ -1,0 +1,1 @@
+const tabs=['Live','Vendas','Sorteio','Configurações']; export default ({tab,setTab}:any)=><div className='flex gap-2'>{tabs.map(t=><button key={t} onClick={()=>setTab(t)} className={`px-3 py-2 rounded ${tab===t?'bg-blue-600 text-white':'bg-white border'}`}>{t}</button>)}</div>
